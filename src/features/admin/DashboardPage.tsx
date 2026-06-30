@@ -27,7 +27,7 @@ export function DashboardPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="eyebrow">Workspace</p>
-          <h1 className="mt-1.5 font-serif text-[2.1rem] leading-tight tracking-tight">Tests</h1>
+          <h1 className="mt-1.5 font-sans font-bold text-[2.1rem] leading-tight tracking-tight">Tests</h1>
           <p className="mt-1.5 max-w-xl text-muted-foreground">
             Preference tests you own. Results are directional signal — not conversion claims.
           </p>

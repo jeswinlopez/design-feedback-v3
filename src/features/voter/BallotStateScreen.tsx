@@ -39,7 +39,7 @@ export function BallotStateScreen({ state }: { state: Screen }) {
         <div className="mx-auto mb-6 grid size-16 place-items-center rounded-2xl border border-border/70 bg-card shadow-card">
           {s.icon}
         </div>
-        <h1 className="font-serif text-[1.7rem] tracking-tight">{s.title}</h1>
+        <h1 className="font-sans font-bold text-[1.7rem] tracking-tight">{s.title}</h1>
         <p className="mx-auto mt-3 max-w-sm leading-relaxed text-muted-foreground">{s.body}</p>
       </div>
     </div>

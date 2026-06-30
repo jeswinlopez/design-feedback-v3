@@ -1,5 +1,4 @@
 @import "@fontsource-variable/inter";
-@import "@fontsource-variable/fraunces";
 
 @tailwind base;
 @tailwind components;
@@ -7,42 +6,42 @@
 
 @layer base {
   :root {
-    /* Warm paper neutral + a single confident indigo accent. HSL channels. */
-    --background: 38 32% 98%;
-    --foreground: 24 14% 11%;
+    /* Cool, bright SaaS palette: light grey-blue ground, white cards, vivid blue accent. */
+    --background: 216 33% 97%;
+    --foreground: 222 30% 14%;
 
     --card: 0 0% 100%;
-    --card-foreground: 24 14% 11%;
+    --card-foreground: 222 30% 14%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 24 14% 11%;
+    --popover-foreground: 222 30% 14%;
 
-    /* primary = warm near-black ink for strong hierarchy */
-    --primary: 24 18% 12%;
-    --primary-foreground: 38 32% 98%;
+    /* primary == the vivid blue (primary buttons, logo, active states) */
+    --primary: 223 88% 56%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 36 22% 95%;
-    --secondary-foreground: 24 14% 18%;
+    --secondary: 220 28% 95%;
+    --secondary-foreground: 222 22% 24%;
 
-    --muted: 36 20% 95%;
-    --muted-foreground: 28 8% 42%;
+    --muted: 220 26% 95.5%;
+    --muted-foreground: 218 12% 46%;
 
-    /* the single accent: refined indigo */
-    --accent: 234 58% 53%;
+    /* the single accent: same blue, used for CTAs and emphasis */
+    --accent: 223 88% 56%;
     --accent-foreground: 0 0% 100%;
-    --accent-soft: 234 70% 96%;
+    --accent-soft: 223 100% 96.5%;
 
-    --destructive: 2 62% 46%;
+    --destructive: 2 74% 52%;
     --destructive-foreground: 0 0% 100%;
 
-    --success: 152 44% 34%;
+    --success: 152 56% 38%;
     --success-foreground: 0 0% 100%;
 
-    --border: 32 16% 89%;
-    --input: 32 16% 86%;
-    --ring: 234 58% 53%;
+    --border: 220 22% 90%;
+    --input: 220 22% 88%;
+    --ring: 223 88% 56%;
 
-    --radius: 0.75rem;
+    --radius: 0.8rem;
   }
 }
 
@@ -58,19 +57,17 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: "cv11", "ss01";
-    /* Very subtle warm vignette so flat fills don't read as "template". */
-    background-image:
-      radial-gradient(60rem 40rem at 50% -10%, hsl(234 58% 53% / 0.05), transparent 60%),
-      radial-gradient(50rem 50rem at 100% 0%, hsl(36 60% 70% / 0.06), transparent 55%);
+    /* Faint cool wash at the top so large flat fills don't read as dead grey. */
+    background-image: radial-gradient(56rem 36rem at 50% -12%, hsl(223 88% 56% / 0.05), transparent 60%);
     background-attachment: fixed;
   }
   h1, h2, h3 {
-    @apply font-serif;
-    font-variation-settings: "opsz" 40, "SOFT" 0, "WONK" 0;
-    letter-spacing: -0.018em;
+    @apply font-sans;
+    font-weight: 700;
+    letter-spacing: -0.021em;
   }
   ::selection {
-    background: hsl(234 58% 53% / 0.16);
+    background: hsl(223 88% 56% / 0.16);
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -83,7 +80,7 @@
 @layer components {
   /* Small uppercase eyebrow used above headings. */
   .eyebrow {
-    @apply text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground;
+    @apply text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground;
   }
   /* Soft accent backdrop glow for focused, single-purpose screens. */
   .screen-glow::before {
@@ -91,8 +88,7 @@
     position: fixed;
     inset: 0;
     z-index: -1;
-    background:
-      radial-gradient(36rem 28rem at 50% -6rem, hsl(234 58% 53% / 0.10), transparent 60%);
+    background: radial-gradient(34rem 26rem at 50% -5rem, hsl(223 88% 56% / 0.10), transparent 62%);
     pointer-events: none;
   }
 }

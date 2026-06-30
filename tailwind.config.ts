@@ -59,14 +59,14 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["Inter Variable", "Inter", "system-ui", "sans-serif"],
-        serif: ["Fraunces Variable", "Fraunces", "Georgia", "serif"],
+        serif: ["Inter Variable", "Inter", "system-ui", "sans-serif"],
       },
       boxShadow: {
-        xs: "0 1px 2px 0 hsl(28 20% 18% / 0.04)",
-        sm: "0 1px 2px hsl(28 20% 18% / 0.05), 0 1px 3px -1px hsl(28 20% 18% / 0.06)",
-        card: "0 1px 2px hsl(28 20% 18% / 0.04), 0 10px 26px -14px hsl(28 20% 18% / 0.16)",
-        lift: "0 2px 6px hsl(28 20% 18% / 0.06), 0 22px 48px -20px hsl(28 24% 16% / 0.26)",
-        accent: "0 6px 18px -6px hsl(234 58% 40% / 0.42)",
+        xs: "0 1px 2px 0 hsl(222 30% 24% / 0.04)",
+        sm: "0 1px 2px hsl(222 30% 24% / 0.05), 0 1px 3px -1px hsl(222 30% 24% / 0.07)",
+        card: "0 1px 2px hsl(222 30% 24% / 0.05), 0 10px 26px -16px hsl(222 30% 24% / 0.18)",
+        lift: "0 2px 6px hsl(222 30% 24% / 0.06), 0 22px 48px -22px hsl(222 32% 22% / 0.26)",
+        accent: "0 5px 14px -5px hsl(223 88% 45% / 0.40)",
       },
       keyframes: {
         "fade-in": {

@@ -38,10 +38,10 @@ export function LoginPage() {
     <div className="screen-glow flex min-h-screen items-center justify-center px-6">
       <div className="w-full max-w-sm animate-fade-in">
         <div className="mb-8 text-center">
-          <span className="mx-auto mb-5 grid size-12 place-items-center rounded-2xl bg-primary text-primary-foreground font-serif text-xl shadow-card">
+          <span className="mx-auto mb-5 grid size-12 place-items-center rounded-2xl bg-primary text-primary-foreground font-sans font-bold text-xl shadow-card">
             D
           </span>
-          <h1 className="font-serif text-3xl tracking-tight">Design Face-Off</h1>
+          <h1 className="font-sans font-bold text-3xl tracking-tight">Design Face-Off</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             Admin sign-in · access is invite-only
           </p>

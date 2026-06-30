@@ -55,7 +55,7 @@ export function BallotPage() {
     <div className="screen-glow animate-fade-in">
       <header className="mx-auto mb-9 max-w-2xl text-center">
         <p className="eyebrow text-accent">Your pick</p>
-        <h1 className="mt-3 font-serif text-[2rem] leading-[1.1] tracking-tight sm:text-[2.6rem]">
+        <h1 className="mt-3 font-sans font-bold text-[2rem] leading-[1.1] tracking-tight sm:text-[2.6rem]">
           {test.title}
         </h1>
         {test.description && (

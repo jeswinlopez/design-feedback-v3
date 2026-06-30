@@ -76,7 +76,7 @@ export function ResultsPage() {
       </div>
 
       <div>
-        <h1 className="font-serif text-3xl tracking-tight">{test.title}</h1>
+        <h1 className="font-sans font-bold text-3xl tracking-tight">{test.title}</h1>
         <p className="mt-1.5 text-muted-foreground">
           Stated-preference results — directional signal, not a conversion or significance claim.
         </p>
@@ -297,7 +297,7 @@ function StatCard({ label, value, sub }: { label: string; value: string; sub?: s
     <Card>
       <CardContent className="pt-6">
         <p className="eyebrow">{label}</p>
-        <p className="mt-2 font-serif text-[2.1rem] leading-none tracking-tight">{value}</p>
+        <p className="mt-2 font-sans font-bold text-[2.1rem] leading-none tracking-tight">{value}</p>
         {sub && <p className="mt-1.5 text-sm text-muted-foreground">{sub}</p>}
       </CardContent>
     </Card>

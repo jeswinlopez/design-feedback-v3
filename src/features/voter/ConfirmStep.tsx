@@ -71,7 +71,7 @@ export function ConfirmStep({
         </div>
 
         {noPref ? (
-          <p className="mt-4 font-serif text-2xl tracking-tight">No clear preference</p>
+          <p className="mt-4 font-sans font-bold text-2xl tracking-tight">No clear preference</p>
         ) : (
           <>
             <p className="mt-4 text-sm text-muted-foreground">You’re choosing this design:</p>

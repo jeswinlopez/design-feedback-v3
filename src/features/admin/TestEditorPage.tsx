@@ -152,7 +152,7 @@ export function TestEditorPage({ mode }: { mode: "new" | "edit" }) {
       </div>
 
       <div>
-        <h1 className="font-serif text-3xl tracking-tight">
+        <h1 className="font-sans font-bold text-3xl tracking-tight">
           {mode === "new" ? "New test" : test?.title}
         </h1>
         <p className="mt-1.5 text-muted-foreground">

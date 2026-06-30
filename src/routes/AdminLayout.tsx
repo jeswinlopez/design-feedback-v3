@@ -22,10 +22,10 @@ export function AdminLayout() {
       <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
         <div className="container flex h-16 items-center justify-between">
           <Link to="/admin" className="flex items-center gap-2.5">
-            <span className="grid size-7 place-items-center rounded-md bg-primary text-primary-foreground font-serif text-sm">
+            <span className="grid size-7 place-items-center rounded-md bg-primary text-primary-foreground font-sans font-bold text-sm">
               D
             </span>
-            <span className="font-serif text-lg tracking-tight">Design Face-Off</span>
+            <span className="font-sans font-bold text-lg tracking-tight">Design Face-Off</span>
           </Link>
           <div className="flex items-center gap-3">
             <span className="hidden text-sm text-muted-foreground sm:inline">
