@@ -1,0 +1,72 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/fraunces";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Warm neutral (stone) palette + single ink-indigo accent. HSL channels. */
+    --background: 40 30% 99%;
+    --foreground: 24 10% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 24 10% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 10% 12%;
+
+    /* primary = near-black ink for strong hierarchy */
+    --primary: 24 12% 14%;
+    --primary-foreground: 40 30% 98%;
+
+    --secondary: 36 18% 95%;
+    --secondary-foreground: 24 10% 20%;
+
+    --muted: 36 16% 95%;
+    --muted-foreground: 28 6% 44%;
+
+    /* the single accent: restrained indigo */
+    --accent: 232 46% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 152 40% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 32 14% 90%;
+    --input: 32 14% 88%;
+    --ring: 232 46% 48%;
+
+    --radius: 0.65rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "cv11", "ss01";
+  }
+  h1, h2, h3 {
+    @apply font-serif;
+    font-variation-settings: "opsz" 40, "SOFT" 0, "WONK" 0;
+    letter-spacing: -0.01em;
+  }
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
