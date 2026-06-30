@@ -52,12 +52,16 @@ export function BallotPage() {
   }
 
   return (
-    <div className="animate-fade-in">
-      <header className="mx-auto mb-8 max-w-2xl text-center">
-        <p className="text-xs font-medium uppercase tracking-widest text-accent">Your pick</p>
-        <h1 className="mt-2 font-serif text-3xl tracking-tight sm:text-4xl">{test.title}</h1>
+    <div className="screen-glow animate-fade-in">
+      <header className="mx-auto mb-9 max-w-2xl text-center">
+        <p className="eyebrow text-accent">Your pick</p>
+        <h1 className="mt-3 font-serif text-[2rem] leading-[1.1] tracking-tight sm:text-[2.6rem]">
+          {test.title}
+        </h1>
         {test.description && (
-          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">{test.description}</p>
+          <p className="mx-auto mt-4 max-w-xl text-[0.975rem] leading-relaxed text-muted-foreground">
+            {test.description}
+          </p>
         )}
         <p className="mt-4 text-sm text-muted-foreground">
           Take a look at both, then choose the one you prefer.

@@ -33,6 +33,7 @@ const config: Config = {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+          soft: "hsl(var(--accent-soft))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -59,6 +60,13 @@ const config: Config = {
       fontFamily: {
         sans: ["Inter Variable", "Inter", "system-ui", "sans-serif"],
         serif: ["Fraunces Variable", "Fraunces", "Georgia", "serif"],
+      },
+      boxShadow: {
+        xs: "0 1px 2px 0 hsl(28 20% 18% / 0.04)",
+        sm: "0 1px 2px hsl(28 20% 18% / 0.05), 0 1px 3px -1px hsl(28 20% 18% / 0.06)",
+        card: "0 1px 2px hsl(28 20% 18% / 0.04), 0 10px 26px -14px hsl(28 20% 18% / 0.16)",
+        lift: "0 2px 6px hsl(28 20% 18% / 0.06), 0 22px 48px -20px hsl(28 24% 16% / 0.26)",
+        accent: "0 6px 18px -6px hsl(234 58% 40% / 0.42)",
       },
       keyframes: {
         "fade-in": {

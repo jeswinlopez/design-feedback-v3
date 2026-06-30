@@ -296,9 +296,9 @@ function StatCard({ label, value, sub }: { label: string; value: string; sub?: s
   return (
     <Card>
       <CardContent className="pt-6">
-        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
-        <p className="mt-2 font-serif text-3xl tracking-tight">{value}</p>
-        {sub && <p className="mt-0.5 text-sm text-muted-foreground">{sub}</p>}
+        <p className="eyebrow">{label}</p>
+        <p className="mt-2 font-serif text-[2.1rem] leading-none tracking-tight">{value}</p>
+        {sub && <p className="mt-1.5 text-sm text-muted-foreground">{sub}</p>}
       </CardContent>
     </Card>
   );
@@ -319,19 +319,23 @@ function SplitBar({
 }) {
   return (
     <div>
-      <div className="mb-1.5 flex items-baseline justify-between">
+      <div className="mb-2 flex items-baseline justify-between">
         <span className="text-sm font-medium">
           {label}
           {caption && <span className="ml-2 font-normal text-muted-foreground">{caption}</span>}
         </span>
-        <span className="tabular-nums text-sm">
-          {Math.round(pct)}% <span className="text-muted-foreground">({count})</span>
+        <span className="tabular-nums text-sm font-medium">
+          {Math.round(pct)}% <span className="font-normal text-muted-foreground">({count})</span>
         </span>
       </div>
-      <div className="h-2.5 w-full overflow-hidden rounded-full bg-secondary">
+      <div className="h-3 w-full overflow-hidden rounded-full bg-secondary ring-1 ring-inset ring-border/50">
         <div
-          className={muted ? "h-full rounded-full bg-muted-foreground/40" : "h-full rounded-full bg-accent"}
-          style={{ width: `${Math.max(pct, 1.5)}%` }}
+          className={
+            muted
+              ? "h-full rounded-full bg-muted-foreground/40 transition-[width] duration-500 ease-out"
+              : "h-full rounded-full bg-gradient-to-r from-accent to-accent/80 transition-[width] duration-500 ease-out"
+          }
+          style={{ width: `${Math.max(pct, 2)}%` }}
         />
       </div>
     </div>

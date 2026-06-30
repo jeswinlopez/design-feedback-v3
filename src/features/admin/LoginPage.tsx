@@ -35,20 +35,20 @@ export function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-6">
-      <div className="w-full max-w-sm">
+    <div className="screen-glow flex min-h-screen items-center justify-center px-6">
+      <div className="w-full max-w-sm animate-fade-in">
         <div className="mb-8 text-center">
-          <span className="mx-auto mb-4 grid size-11 place-items-center rounded-xl bg-primary text-primary-foreground font-serif text-lg">
+          <span className="mx-auto mb-5 grid size-12 place-items-center rounded-2xl bg-primary text-primary-foreground font-serif text-xl shadow-card">
             D
           </span>
-          <h1 className="font-serif text-2xl tracking-tight">Design Face-Off</h1>
-          <p className="mt-1.5 text-sm text-muted-foreground">
-            Admin sign-in. Access is invite-only.
+          <h1 className="font-serif text-3xl tracking-tight">Design Face-Off</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Admin sign-in · access is invite-only
           </p>
         </div>
 
         {sent ? (
-          <div className="rounded-lg border border-border bg-card p-6 text-center animate-fade-in">
+          <div className="rounded-xl border border-border/70 bg-card p-7 text-center shadow-lift animate-scale-in">
             <Mail className="mx-auto mb-3 size-6 text-accent" />
             <p className="font-medium">Check your inbox</p>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -57,7 +57,7 @@ export function LoginPage() {
             </p>
           </div>
         ) : (
-          <form onSubmit={sendLink} className="space-y-4 rounded-lg border border-border bg-card p-6">
+          <form onSubmit={sendLink} className="space-y-4 rounded-xl border border-border/70 bg-card p-7 shadow-lift">
             <div className="space-y-2">
               <Label htmlFor="email">Work email</Label>
               <Input

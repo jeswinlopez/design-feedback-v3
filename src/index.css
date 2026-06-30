@@ -7,41 +7,42 @@
 
 @layer base {
   :root {
-    /* Warm neutral (stone) palette + single ink-indigo accent. HSL channels. */
-    --background: 40 30% 99%;
-    --foreground: 24 10% 12%;
+    /* Warm paper neutral + a single confident indigo accent. HSL channels. */
+    --background: 38 32% 98%;
+    --foreground: 24 14% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 24 10% 12%;
+    --card-foreground: 24 14% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 24 10% 12%;
+    --popover-foreground: 24 14% 11%;
 
-    /* primary = near-black ink for strong hierarchy */
-    --primary: 24 12% 14%;
-    --primary-foreground: 40 30% 98%;
+    /* primary = warm near-black ink for strong hierarchy */
+    --primary: 24 18% 12%;
+    --primary-foreground: 38 32% 98%;
 
-    --secondary: 36 18% 95%;
-    --secondary-foreground: 24 10% 20%;
+    --secondary: 36 22% 95%;
+    --secondary-foreground: 24 14% 18%;
 
-    --muted: 36 16% 95%;
-    --muted-foreground: 28 6% 44%;
+    --muted: 36 20% 95%;
+    --muted-foreground: 28 8% 42%;
 
-    /* the single accent: restrained indigo */
-    --accent: 232 46% 48%;
+    /* the single accent: refined indigo */
+    --accent: 234 58% 53%;
     --accent-foreground: 0 0% 100%;
+    --accent-soft: 234 70% 96%;
 
-    --destructive: 0 60% 45%;
+    --destructive: 2 62% 46%;
     --destructive-foreground: 0 0% 100%;
 
-    --success: 152 40% 36%;
+    --success: 152 44% 34%;
     --success-foreground: 0 0% 100%;
 
-    --border: 32 14% 90%;
-    --input: 32 14% 88%;
-    --ring: 232 46% 48%;
+    --border: 32 16% 89%;
+    --input: 32 16% 86%;
+    --ring: 234 58% 53%;
 
-    --radius: 0.65rem;
+    --radius: 0.75rem;
   }
 }
 
@@ -51,22 +52,47 @@
   }
   html {
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: "cv11", "ss01";
+    /* Very subtle warm vignette so flat fills don't read as "template". */
+    background-image:
+      radial-gradient(60rem 40rem at 50% -10%, hsl(234 58% 53% / 0.05), transparent 60%),
+      radial-gradient(50rem 50rem at 100% 0%, hsl(36 60% 70% / 0.06), transparent 55%);
+    background-attachment: fixed;
   }
   h1, h2, h3 {
     @apply font-serif;
     font-variation-settings: "opsz" 40, "SOFT" 0, "WONK" 0;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.018em;
   }
-  /* Respect reduced motion */
+  ::selection {
+    background: hsl(234 58% 53% / 0.16);
+  }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
       transition-duration: 0.01ms !important;
     }
+  }
+}
+
+@layer components {
+  /* Small uppercase eyebrow used above headings. */
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground;
+  }
+  /* Soft accent backdrop glow for focused, single-purpose screens. */
+  .screen-glow::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(36rem 28rem at 50% -6rem, hsl(234 58% 53% / 0.10), transparent 60%);
+    pointer-events: none;
   }
 }

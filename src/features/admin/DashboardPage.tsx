@@ -24,14 +24,15 @@ export function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-end justify-between gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="font-serif text-3xl tracking-tight">Tests</h1>
-          <p className="mt-1.5 text-muted-foreground">
+          <p className="eyebrow">Workspace</p>
+          <h1 className="mt-1.5 font-serif text-[2.1rem] leading-tight tracking-tight">Tests</h1>
+          <p className="mt-1.5 max-w-xl text-muted-foreground">
             Preference tests you own. Results are directional signal — not conversion claims.
           </p>
         </div>
-        <Button asChild variant="accent">
+        <Button asChild variant="accent" size="lg" className="self-start sm:self-auto">
           <Link to="/admin/tests/new">
             <Plus className="size-4" />
             New test

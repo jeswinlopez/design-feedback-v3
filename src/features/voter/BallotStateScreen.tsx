@@ -34,13 +34,13 @@ const SCREENS: Record<
 export function BallotStateScreen({ state }: { state: Screen }) {
   const s = SCREENS[state];
   return (
-    <div className="flex min-h-[70vh] items-center justify-center px-4 animate-fade-in">
+    <div className="screen-glow flex min-h-[72vh] items-center justify-center px-4 animate-fade-in">
       <div className="w-full max-w-md text-center">
-        <div className="mx-auto mb-5 grid size-14 place-items-center rounded-full bg-secondary">
+        <div className="mx-auto mb-6 grid size-16 place-items-center rounded-2xl border border-border/70 bg-card shadow-card">
           {s.icon}
         </div>
-        <h1 className="font-serif text-2xl tracking-tight">{s.title}</h1>
-        <p className="mx-auto mt-3 max-w-sm text-muted-foreground">{s.body}</p>
+        <h1 className="font-serif text-[1.7rem] tracking-tight">{s.title}</h1>
+        <p className="mx-auto mt-3 max-w-sm leading-relaxed text-muted-foreground">{s.body}</p>
       </div>
     </div>
   );
