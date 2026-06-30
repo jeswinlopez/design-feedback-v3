@@ -1,0 +1,94 @@
+@import "@fontsource-variable/inter";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Cool, bright SaaS palette: light grey-blue ground, white cards, vivid blue accent. */
+    --background: 216 33% 97%;
+    --foreground: 222 30% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 30% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 30% 14%;
+
+    /* primary == the vivid blue (primary buttons, logo, active states) */
+    --primary: 223 88% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 28% 95%;
+    --secondary-foreground: 222 22% 24%;
+
+    --muted: 220 26% 95.5%;
+    --muted-foreground: 218 12% 46%;
+
+    /* the single accent: same blue, used for CTAs and emphasis */
+    --accent: 223 88% 56%;
+    --accent-foreground: 0 0% 100%;
+    --accent-soft: 223 100% 96.5%;
+
+    --destructive: 2 74% 52%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 152 56% 38%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 220 22% 90%;
+    --input: 220 22% 88%;
+    --ring: 223 88% 56%;
+
+    --radius: 0.8rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "cv11", "ss01";
+    /* Faint cool wash at the top so large flat fills don't read as dead grey. */
+    background-image: radial-gradient(56rem 36rem at 50% -12%, hsl(223 88% 56% / 0.05), transparent 60%);
+    background-attachment: fixed;
+  }
+  h1, h2, h3 {
+    @apply font-sans;
+    font-weight: 700;
+    letter-spacing: -0.021em;
+  }
+  ::selection {
+    background: hsl(223 88% 56% / 0.16);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Small uppercase eyebrow used above headings. */
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground;
+  }
+  /* Soft accent backdrop glow for focused, single-purpose screens. */
+  .screen-glow::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(34rem 26rem at 50% -5rem, hsl(223 88% 56% / 0.10), transparent 62%);
+    pointer-events: none;
+  }
+}
