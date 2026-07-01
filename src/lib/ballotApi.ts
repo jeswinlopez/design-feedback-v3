@@ -20,8 +20,24 @@ async function callFn<T>(name: string, body: unknown): Promise<T> {
   return (await res.json()) as T;
 }
 
-export function getBallot(token: string) {
-  return callFn<BallotResponse>("get_ballot", { token });
+const BALLOT_STATES: ReadonlyArray<BallotResponse["state"]> = [
+  "open",
+  "already_voted",
+  "closed",
+  "invalid",
+];
+
+export async function getBallot(token: string): Promise<BallotResponse> {
+  // Any non-typed response (platform 401/403/429, unexpected body) must degrade to the
+  // "invalid" screen rather than flow through with an undefined state and crash the UI.
+  let res: BallotResponse;
+  try {
+    res = await callFn<BallotResponse>("get_ballot", { token });
+  } catch {
+    return { state: "invalid" };
+  }
+  if (!res || !BALLOT_STATES.includes(res.state)) return { state: "invalid" };
+  return res;
 }
 
 export function castVote(input: {

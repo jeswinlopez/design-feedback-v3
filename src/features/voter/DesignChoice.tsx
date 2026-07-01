@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Maximize2, ImageOff } from "lucide-react";
+import { Maximize2, ImageOff, RotateCw } from "lucide-react";
 import type { BallotVariant } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -16,20 +16,25 @@ export function DesignChoice({
   onChoose: () => void;
 }) {
   const [open, setOpen] = useState(false);
+  // Signed Storage URLs are short-lived; if one expires while the voter lingers, the
+  // <img> errors. Track that so we can show a reload affordance instead of a broken icon.
+  const [broken, setBroken] = useState(false);
+  const showImage = !!variant.url && !broken;
 
   return (
     <div className="group/card flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-card transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-lift">
       <button
         type="button"
-        onClick={() => variant.url && setOpen(true)}
+        onClick={() => showImage && setOpen(true)}
         className="group relative aspect-[4/3] w-full overflow-hidden bg-secondary/50"
         aria-label="Enlarge design"
       >
-        {variant.url ? (
+        {showImage ? (
           <>
             <img
-              src={variant.url}
+              src={variant.url!}
               alt={`Design option ${position + 1}`}
+              onError={() => setBroken(true)}
               className="h-full w-full object-contain transition-transform duration-300 ease-out group-hover:scale-[1.015]"
             />
             <span className="absolute left-3 top-3 grid h-7 min-w-7 place-items-center rounded-full bg-background/85 px-2 text-xs font-semibold text-foreground shadow-xs backdrop-blur">
@@ -40,9 +45,21 @@ export function DesignChoice({
             </span>
           </>
         ) : (
-          <div className="flex h-full flex-col items-center justify-center gap-2 text-muted-foreground">
+          <div className="flex h-full flex-col items-center justify-center gap-2 px-4 text-center text-muted-foreground">
             <ImageOff className="size-6" />
-            <span className="text-sm">Image unavailable</span>
+            <span className="text-sm">{broken ? "Image expired" : "Image unavailable"}</span>
+            {broken && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.location.reload();
+                }}
+                className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-accent hover:underline"
+              >
+                <RotateCw className="size-3.5" /> Reload
+              </button>
+            )}
           </div>
         )}
       </button>
@@ -58,10 +75,14 @@ export function DesignChoice({
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-4xl border-0 bg-transparent p-0 shadow-none">
-          {variant.url && (
+          {showImage && (
             <img
-              src={variant.url}
+              src={variant.url!}
               alt={`Design option ${position + 1} enlarged`}
+              onError={() => {
+                setBroken(true);
+                setOpen(false);
+              }}
               className="max-h-[85vh] w-full rounded-lg object-contain"
             />
           )}

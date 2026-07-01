@@ -14,7 +14,7 @@ const json = (body: unknown, status = 200) =>
     headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
 
-const SIGNED_URL_TTL_SECONDS = 600; // 10 minutes — enough to view on mobile, then expires.
+const SIGNED_URL_TTL_SECONDS = 1800; // 30 minutes — comfortable viewing window, then expires.
 
 type Variant = { id: string; label: string; image_path: string | null; caption: string | null };
 

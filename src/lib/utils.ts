@@ -25,8 +25,13 @@ export function toCsv(
   rows: (string | number | boolean | null | undefined)[][],
 ): string {
   const esc = (v: string | number | boolean | null | undefined) => {
-    const s = v === null || v === undefined ? "" : String(v);
-    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    let s = v === null || v === undefined ? "" : String(v);
+    // Neutralize CSV formula injection: a cell starting with = + - @ (or a control
+    // char) is evaluated as a formula by Excel/Sheets. Voter rationale is untrusted, so
+    // prefix such cells with a single quote to force them to render as literal text.
+    if (/^[=+\-@\t\r]/.test(s)) s = `'${s}`;
+    // Quote when the value contains a delimiter, quote, or any newline (incl. lone CR).
+    return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
   };
   return [headers.map(esc).join(","), ...rows.map((r) => r.map(esc).join(","))].join("\n");
 }

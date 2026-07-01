@@ -32,7 +32,9 @@ const SCREENS: Record<
 };
 
 export function BallotStateScreen({ state }: { state: Screen }) {
-  const s = SCREENS[state];
+  // Fall back to the invalid screen for any unexpected state rather than crash on a
+  // missing SCREENS entry.
+  const s = SCREENS[state] ?? SCREENS.invalid;
   return (
     <div className="screen-glow flex min-h-[72vh] items-center justify-center px-4 animate-fade-in">
       <div className="w-full max-w-md text-center">
