@@ -27,10 +27,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let active = true;
+    // Monotonic guard so overlapping auth events (initial getSession racing an
+    // onAuthStateChange, sign-out racing an in-flight load) can't let a stale profile win.
+    let loadSeq = 0;
 
     async function loadProfile(s: Session | null) {
+      const seq = ++loadSeq;
       if (!s) {
-        if (active) setProfile(null);
+        if (active && seq === loadSeq) setProfile(null);
         return;
       }
       // RLS allows reading only your own row; no row => not an admin.
@@ -39,7 +43,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         .select("id, email, name, role")
         .eq("id", s.user.id)
         .maybeSingle();
-      if (active) setProfile((data as Profile) ?? null);
+      // Only apply if this is still the most recent load.
+      if (active && seq === loadSeq) setProfile((data as Profile) ?? null);
     }
 
     supabase.auth.getSession().then(async ({ data }) => {

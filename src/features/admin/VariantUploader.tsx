@@ -61,8 +61,12 @@ export function VariantUploader({
 
   async function saveCaption() {
     if (caption === (variant.caption ?? "")) return;
-    await updateVariant(variant.id, { caption: caption.trim() || null });
-    onChange();
+    try {
+      await updateVariant(variant.id, { caption: caption.trim() || null });
+      onChange();
+    } catch (e) {
+      toast({ variant: "error", title: "Couldn’t save caption", description: (e as Error).message });
+    }
   }
 
   return (

@@ -8,14 +8,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { StatusBadge } from "@/components/StatusBadge";
 import { LeaningBadge } from "@/components/LeaningBadge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { classifyLeaning } from "@/lib/config";
+import { leaningFromTopTwo } from "@/lib/config";
 import { formatDate, pct } from "@/lib/utils";
 
 function leaningFor(t: TestOverview) {
   // For exactly 2 variants the runner-up tally is decisive_n - top_count.
-  const second = t.decisive_n - t.top_count;
-  const marginPts = t.decisive_n ? Math.round(((t.top_count - second) / t.decisive_n) * 100) : 0;
-  return classifyLeaning(marginPts, t.decisive_n);
+  return leaningFromTopTwo(t.top_count, t.decisive_n - t.top_count, t.decisive_n);
 }
 
 export function DashboardPage() {

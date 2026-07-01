@@ -1,4 +1,4 @@
-import { classifyLeaning, LEANING_CONFIG, type Leaning } from "@/lib/config";
+import { classifyLeaning, marginPtsFromTopTwo, LEANING_CONFIG, type Leaning } from "@/lib/config";
 import type { ResultsData } from "./api";
 
 export interface VariantResult {
@@ -94,14 +94,12 @@ export function computeResults(
     };
   });
 
-  // Leader + margin among decisive votes.
+  // Leader + margin among decisive votes. Uses the shared top-two helper so the results
+  // page and the dashboard badge derive leaning identically.
   const sorted = [...variantResults].sort((a, b) => b.count - a.count);
   const leader = sorted[0] ?? null;
   const runnerUp = sorted[1] ?? null;
-  const marginPts =
-    leader && runnerUp && decisive.length
-      ? Math.round(((leader.count - runnerUp.count) / decisive.length) * 100)
-      : 0;
+  const marginPts = marginPtsFromTopTwo(leader?.count ?? 0, runnerUp?.count ?? 0, decisive.length);
   const leaning = classifyLeaning(marginPts, decisive.length);
 
   // First-position advantage: how often the first-shown option was chosen (decisive only).
