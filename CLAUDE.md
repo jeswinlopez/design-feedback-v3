@@ -45,8 +45,9 @@ private). The Edge functions are thin — put logic in the SQL functions.
 
 ```
 src/
-  lib/         supabase (anon client only), auth, ballotApi (edge fetch), config (leaning
-               thresholds + upload limits), types, utils (csv/date/pct), queryClient
+  lib/         supabase (anon client only; fail-soft `supabaseConfigured`), auth,
+               ballotApi (edge fetch), config (leaning thresholds/helpers + upload limits),
+               types, utils (toCsv/slugify/date/pct), queryClient
   components/  ui/ primitives + StatusBadge / LeaningBadge / Spinner
   features/admin/  LoginPage, DashboardPage, TestEditorPage, ResultsPage, + api.ts (all
                    Supabase reads/writes), results.ts (pure result math)
@@ -54,7 +55,7 @@ src/
   routes/      AdminLayout (auth guard), VoterLayout (minimal)
 supabase/
   migrations/  0001 schema · 0002 RLS+grants · 0003 functions · 0004 storage · 0005 view
-  functions/   get_ballot, cast_vote (Deno; self-contained, inline cors/json helpers)
+  functions/   get_ballot, cast_vote (Deno) + _shared/http.ts (cors/json helpers)
   seed.mjs     demo admin + active test + generated placeholder PNGs + voters
 ```
 
@@ -85,12 +86,23 @@ anon key).
 - **pgcrypto lives in the `extensions` schema** on Supabase, not `public`. SQL functions pin
   `search_path`, so qualify calls (`extensions.digest(...)`). `app_gen_token` avoids pgcrypto
   entirely (two `gen_random_uuid()`s) to stay dependency-free.
-- **`effective_is_open` is `SECURITY INVOKER`** and only called from the `SECURITY DEFINER`
-  voter functions (so it inherits their access); it is not exposed to client roles.
-- **Leaning thresholds and upload limits live in one place:** `src/lib/config.ts`
-  (`classifyLeaning`, `LEANING_CONFIG`, `UPLOAD`). Tune there; never surface p-values.
+- **`effective_is_open` is `SECURITY INVOKER`**, revoked from client roles, and only called
+  from the `SECURITY DEFINER` voter functions (so it inherits their access). The admin
+  dashboard can't call it directly — `admin_test_overview` (0005) re-implements the same
+  open-state predicate, so **keep the two definitions in sync** if you change the close rule.
+- **Leaning lives in one place:** `src/lib/config.ts` — `LEANING_CONFIG`, `classifyLeaning`,
+  and `marginPtsFromTopTwo` / `leaningFromTopTwo`. Both the dashboard badge and the results
+  page derive leaning through these helpers so they can't disagree. Never surface p-values.
 - **v1 enforces exactly 2 variants.** Result math assumes it (runner-up tally =
   `decisive_n - top_count`). The schema is N-variant-friendly but the UI/stats are not.
+- **CSV exports go through `toCsv` (`src/lib/utils.ts`),** which neutralizes formula
+  injection (leading `= + - @`) and quotes newlines — reuse it, don't hand-roll CSV. Use
+  `slugify` for export filenames.
+- **`supabase.ts` fails soft:** it exports `supabaseConfigured` instead of throwing at import
+  (a throw would white-screen every route incl. the public ballot); `main.tsx` renders a
+  config screen when env is missing. Don't reintroduce an import-time throw.
+- **Voter path degrades safely:** `getBallot` maps any non-typed/non-2xx response to the
+  `invalid` state, and signed Storage URLs (30-min TTL) have `<img>` `onError` fallbacks.
 - **`.env.production`** holds client-safe Supabase config so Vercel builds work without env
   setup; Vercel-set env vars override it. Never put the service role key in any `VITE_` var.
 - Client env access is typed in `src/vite-env.d.ts`.
