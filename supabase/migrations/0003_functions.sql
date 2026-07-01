@@ -39,10 +39,12 @@ begin
 end;
 $$;
 
--- Effective open state: same rule used by the voter path and the admin dashboard (§9/§10).
--- Active, not past auto-close time, and under the vote threshold (counts all votes).
--- SECURITY INVOKER: only ever called from the SECURITY DEFINER functions above (which
--- run as their owner), so it inherits their access there. Not exposed to signed-in users.
+-- Effective open state (§9/§10): active, not past auto-close time, and under the vote
+-- threshold (counts all votes). SECURITY INVOKER and revoked from client roles — it is
+-- ONLY called from the SECURITY DEFINER voter functions above (which run as their owner,
+-- so it inherits their access there). The admin dashboard does NOT call this directly
+-- (it can't — it's revoked from `authenticated`); the admin_test_overview view (0005)
+-- deliberately re-implements the same predicate. Keep the two definitions in sync.
 create or replace function effective_is_open(p_test_id uuid)
 returns boolean
 language sql

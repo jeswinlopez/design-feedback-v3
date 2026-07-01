@@ -27,6 +27,7 @@ export function ConfirmStep({
   const [rationale, setRationale] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [terminal, setTerminal] = useState<CastVoteCode | null>(null);
+  const [imgBroken, setImgBroken] = useState(false);
 
   async function submit() {
     setSubmitting(true);
@@ -75,12 +76,26 @@ export function ConfirmStep({
         ) : (
           <>
             <p className="mt-4 text-sm text-muted-foreground">You’re choosing this design:</p>
-            {chosen?.url && (
+            {chosen?.url && !imgBroken && (
               <img
                 src={chosen.url}
                 alt="Your chosen design"
+                onError={() => setImgBroken(true)}
                 className="mt-3 aspect-[4/3] w-full rounded-lg border border-border object-contain"
               />
+            )}
+            {chosen?.url && imgBroken && (
+              <p className="mt-3 rounded-lg border border-border bg-secondary/50 p-3 text-sm text-muted-foreground">
+                The preview expired. Go back and{" "}
+                <button
+                  type="button"
+                  onClick={() => window.location.reload()}
+                  className="font-medium text-accent hover:underline"
+                >
+                  reload
+                </button>{" "}
+                to see it again — your choice is still selected.
+              </p>
             )}
             {chosen?.caption && (
               <p className="mt-2 text-sm text-muted-foreground">{chosen.caption}</p>

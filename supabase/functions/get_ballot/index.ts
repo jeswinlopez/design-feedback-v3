@@ -2,19 +2,9 @@
 // URLs minted server-side with the service role. Never returns the tally or any other
 // voter's data. The variant order comes straight from the DB (token-deterministic).
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.4";
+import { corsHeaders, json } from "../_shared/http.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-};
-const json = (body: unknown, status = 200) =>
-  new Response(JSON.stringify(body), {
-    status,
-    headers: { ...corsHeaders, "Content-Type": "application/json" },
-  });
-
-const SIGNED_URL_TTL_SECONDS = 600; // 10 minutes — enough to view on mobile, then expires.
+const SIGNED_URL_TTL_SECONDS = 1800; // 30 minutes — comfortable viewing window, then expires.
 
 type Variant = { id: string; label: string; image_path: string | null; caption: string | null };
 

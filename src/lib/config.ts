@@ -21,6 +21,18 @@ export function classifyLeaning(marginPts: number, n: number): Leaning {
   return "Leaning";
 }
 
+/** Percentage-point margin between the two leading tallies over the decisive vote count. */
+export function marginPtsFromTopTwo(topCount: number, secondCount: number, decisiveN: number): number {
+  return decisiveN ? Math.round(((topCount - secondCount) / decisiveN) * 100) : 0;
+}
+
+/** Single source for turning the top-two decisive tallies into a leaning label. Used by
+ *  both the dashboard (from the overview view) and the results page (from full vote data)
+ *  so the two never disagree. v1 has exactly 2 variants. */
+export function leaningFromTopTwo(topCount: number, secondCount: number, decisiveN: number): Leaning {
+  return classifyLeaning(marginPtsFromTopTwo(topCount, secondCount, decisiveN), decisiveN);
+}
+
 // Upload constraints (§8), enforced client-side; server caps via bucket config.
 export const UPLOAD = {
   maxBytes: 10 * 1024 * 1024, // ~10MB
