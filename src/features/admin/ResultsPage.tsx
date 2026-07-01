@@ -20,7 +20,7 @@ import { LeaningBadge } from "@/components/LeaningBadge";
 import { StatusBadge } from "@/components/StatusBadge";
 import { FullPageSpinner } from "@/components/Spinner";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { toCsv, downloadCsv, formatDate } from "@/lib/utils";
+import { toCsv, downloadCsv, formatDate, slugify } from "@/lib/utils";
 
 const ACCENT = "hsl(232 46% 48%)";
 
@@ -47,8 +47,7 @@ export function ResultsPage() {
       ["segment", "choice_label", "no_preference", "rationale", "shown_first_label", "created_at"],
       rows.map((r) => [r.segment, r.choice_label, r.no_preference, r.rationale, r.shown_first_label, r.created_at]),
     );
-    const slug = test!.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "test";
-    downloadCsv(`${slug}-votes.csv`, csv);
+    downloadCsv(`${slugify(test!.title)}-votes.csv`, csv);
   }
 
   const rationales = dataQuery.data.votes

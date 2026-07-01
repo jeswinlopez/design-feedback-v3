@@ -36,6 +36,11 @@ export function toCsv(
   return [headers.map(esc).join(","), ...rows.map((r) => r.map(esc).join(","))].join("\n");
 }
 
+/** Lowercase, hyphenated, filename-safe slug from a title; falls back to `fallback`. */
+export function slugify(input: string, fallback = "test"): string {
+  return input.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || fallback;
+}
+
 export function downloadCsv(filename: string, csv: string) {
   const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/components/ui/toast";
-import { toCsv, downloadCsv } from "@/lib/utils";
+import { toCsv, downloadCsv, slugify } from "@/lib/utils";
 
 function voteUrl(token: string) {
   return `${window.location.origin}/vote/${token}`;
@@ -43,8 +43,7 @@ export function InviteLinks({
       ["email", "segment", "link"],
       voters.map((v) => [v.email, v.segment ?? "", voteUrl(v.token)]),
     );
-    const slug = testTitle.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "test";
-    downloadCsv(`${slug}-invite-links.csv`, csv);
+    downloadCsv(`${slugify(testTitle)}-invite-links.csv`, csv);
   }
 
   if (voters.length === 0) {
